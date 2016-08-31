@@ -13,11 +13,13 @@
 
 <ul class="tasks">
   <% for(var i=0; i<tasks.length; i++) { %>
-    <li class="quote">
+    <li class="task">
       <span><%= tasks[i].task %></span>
+      <button class="b-edit" id=<%= tasks[i]._id %>>edit</button>
     </li>
   <% } %>
 </ul>
 
+<script src="main.js"></script>
 </BODY>
 </HTML>

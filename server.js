@@ -5,6 +5,8 @@ const MongoClient = require('mongodb').MongoClient
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
+app.use(express.static('public'))
 
 var db
 
@@ -16,11 +18,9 @@ MongoClient.connect('mongodb://kami:tonsai@ds019946.mlab.com:19946/kamdash', (er
   })
 })
 
-
 app.get('/', (req, res) => {
   db.collection('tasks').find().toArray(function(err, result) {
     if (err) return console.log(err)
-    console.log(result)
     res.render('index.ejs', {tasks: result})
   })
 })
@@ -28,8 +28,6 @@ app.get('/', (req, res) => {
 app.post('/todo', (req, res) => {
   db.collection('tasks').save(req.body, (err, result) => {
     if (err) return console.log(err)
-
-    console.log('task saved to db')
     res.redirect('/')
   })
 })

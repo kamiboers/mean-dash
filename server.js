@@ -31,3 +31,15 @@ app.post('/todo', (req, res) => {
     res.redirect('/')
   })
 })
+
+app.put('/todo', (req, res) => {
+  db.collection('tasks')
+  .findOneAndUpdate({id: req.body.id}, {
+    $set: {
+      task: req.body.task
+    }
+  }, (err, result) => {
+    if (err) return res.send(err)
+    res.send(result)
+  })
+})
